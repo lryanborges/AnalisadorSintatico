@@ -75,8 +75,7 @@ extern int yydebug;
     RSUBCLASS = 276,               /* RSUBCLASS  */
     REQUIVALENT = 277,             /* REQUIVALENT  */
     RINDIVIDUALS = 278,            /* RINDIVIDUALS  */
-    RDISJOINT = 279,               /* RDISJOINT  */
-    UMINUS = 280                   /* UMINUS  */
+    RDISJOINT = 279                /* RDISJOINT  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -90,7 +89,7 @@ union YYSTYPE
 	double num;
 	int ind;
 
-#line 94 "analisadorSint.tab.h"
+#line 93 "analisadorSint.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
