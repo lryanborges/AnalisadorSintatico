@@ -21,7 +21,6 @@
 %token RCLASS RSUBCLASS REQUIVALENT RINDIVIDUALS RDISJOINT '[' ']' '(' ')' ',' '{' '}'
 
 %left '[' ']'
-%nonassoc UMINUS
 
 %%
 
@@ -41,6 +40,7 @@ classeDefinida: RCLASS CLASS equivalent individuals { std::cout << "Achei uma cl
     ;
 
 equivalent: REQUIVALENT classConnect // :
+    | REQUIVALENT instancies  { std::cout << "Achei uma classe enumerada "; }
     | REQUIVALENT multClasses
     ;
 
@@ -48,19 +48,18 @@ individuals: RINDIVIDUALS instancies // :
     |
     ;
 
+disjoint: RDISJOINT seqClasses
+    |
+    ;
+
 subclass: RSUBCLASS seqProp // :
     | RSUBCLASS classConnect
     ;
 
-classConnect: seqClasses
-    | CLASS connect seqProp
+classConnect: CLASS connect seqProp
     | CLASS ',' seqProp
     | '{' classConnect '}'      { std::cout << "Achei uma classe enumerada "; } // nesse caso tá meio que errado 
     ;                                                   // pq enum é só com instancias, mas deixei pra caber no exemplo
-
-disjoint: RDISJOINT seqClasses
-    |
-    ;
 
 seqClasses: CLASS
     | CLASS ',' seqClasses
