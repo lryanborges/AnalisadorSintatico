@@ -56,7 +56,8 @@ subclass: RSUBCLASS seqProp // :
     | RSUBCLASS classConnect
     ;
 
-classConnect: CLASS connect seqProp
+classConnect: CLASS
+    | CLASS connect seqProp
     | CLASS ',' seqProp
     | '{' classConnect '}'      { std::cout << "Achei uma classe enumerada "; } // nesse caso tá meio que errado 
     ;                                                   // pq enum é só com instancias, mas deixei pra caber no exemplo
