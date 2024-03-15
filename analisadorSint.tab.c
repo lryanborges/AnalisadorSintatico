@@ -496,7 +496,7 @@ union yyalloc
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  21
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  52
+#define YYNRULES  53
 /* YYNSTATES -- Number of states.  */
 #define YYNSTATES  97
 
@@ -551,10 +551,10 @@ static const yytype_int8 yyrline[] =
 {
        0,    27,    27,    28,    29,    30,    33,    36,    39,    42,
       43,    44,    47,    48,    51,    52,    55,    56,    59,    60,
-      61,    64,    65,    66,    69,    70,    71,    74,    75,    76,
-      79,    80,    83,    84,    85,    86,    87,    88,    89,    92,
-      95,    96,    97,   100,   101,   102,   105,   106,   109,   110,
-     111,   112,   115
+      61,    62,    65,    66,    67,    70,    71,    72,    75,    76,
+      77,    80,    81,    84,    85,    86,    87,    88,    89,    90,
+      93,    96,    97,    98,   101,   102,   103,   106,   107,   110,
+     111,   112,   113,   116
 };
 #endif
 
@@ -620,15 +620,15 @@ static const yytype_int8 yypact[] =
 static const yytype_int8 yydefact[] =
 {
        5,     0,     0,     5,     5,     5,    15,     1,     4,     3,
-       2,     0,     0,     0,    13,    13,    15,     0,     0,     0,
-       0,    17,    16,    27,    40,    24,     0,     0,     9,    10,
-      11,    21,     0,    14,     0,     8,     6,    13,    30,    31,
-       0,     0,     0,    37,     0,     0,     0,    36,     0,    33,
-      32,    35,    34,     0,     0,     0,     0,     0,     0,    40,
-       0,     0,     0,     0,     0,    12,     7,    19,    18,    43,
-      47,    45,    52,     0,     0,    39,    38,    20,    29,    28,
-       0,    41,    25,     0,    42,    26,    22,    23,     0,    44,
-      50,    48,    51,    49,     0,     0,    46
+       2,     0,     0,     0,    13,    13,    15,    18,     0,     0,
+       0,    17,    16,    28,    18,    25,     0,     0,     9,    10,
+      11,    22,     0,    14,     0,     8,     6,    13,    31,    32,
+       0,     0,     0,    38,     0,     0,     0,    37,     0,    34,
+      33,    36,    35,     0,     0,     0,     0,     0,     0,    41,
+       0,     0,     0,     0,     0,    12,     7,    20,    19,    44,
+      48,    46,    53,     0,     0,    40,    39,    21,    30,    29,
+       0,    42,    26,     0,    43,    27,    23,    24,     0,    45,
+      51,    49,    52,    50,     0,     0,    47
 };
 
 /* YYPGOTO[NTERM-NUM].  */
@@ -699,21 +699,21 @@ static const yytype_int8 yyr1[] =
 {
        0,    32,    33,    33,    33,    33,    34,    35,    36,    37,
       37,    37,    38,    38,    39,    39,    40,    40,    41,    41,
-      41,    42,    42,    42,    43,    43,    43,    44,    44,    44,
-      45,    45,    46,    46,    46,    46,    46,    46,    46,    47,
-      48,    48,    48,    49,    49,    49,    50,    50,    51,    51,
-      51,    51,    52
+      41,    41,    42,    42,    42,    43,    43,    43,    44,    44,
+      44,    45,    45,    46,    46,    46,    46,    46,    46,    46,
+      47,    48,    48,    48,    49,    49,    49,    50,    50,    51,
+      51,    51,    51,    52
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
        0,     2,     2,     2,     2,     0,     4,     5,     4,     2,
-       2,     2,     2,     0,     2,     0,     2,     2,     3,     3,
-       3,     1,     3,     3,     1,     3,     3,     1,     3,     3,
-       1,     1,     2,     2,     2,     2,     2,     2,     3,     2,
-       1,     3,     3,     2,     3,     2,     4,     0,     3,     3,
-       3,     3,     2
+       2,     2,     2,     0,     2,     0,     2,     2,     1,     3,
+       3,     3,     1,     3,     3,     1,     3,     3,     1,     3,
+       3,     1,     1,     2,     2,     2,     2,     2,     2,     3,
+       2,     1,     3,     3,     2,     3,     2,     4,     0,     3,
+       3,     3,     3,     2
 };
 
 
@@ -1200,26 +1200,26 @@ yyreduce:
 #line 1201 "analisadorSint.tab.c"
     break;
 
-  case 20: /* classConnect: '{' classConnect '}'  */
-#line 61 "analisadorSint.y"
+  case 21: /* classConnect: '{' classConnect '}'  */
+#line 62 "analisadorSint.y"
                                 { std::cout << "Achei uma classe enumerada "; }
 #line 1207 "analisadorSint.tab.c"
     break;
 
-  case 23: /* seqClasses: '(' seqClasses ')'  */
-#line 66 "analisadorSint.y"
+  case 24: /* seqClasses: '(' seqClasses ')'  */
+#line 67 "analisadorSint.y"
                                 { std::cout << "Achei uma classe enumerada "; }
 #line 1213 "analisadorSint.tab.c"
     break;
 
-  case 33: /* prop: PROPRIETY only  */
-#line 84 "analisadorSint.y"
+  case 34: /* prop: PROPRIETY only  */
+#line 85 "analisadorSint.y"
                             { std::cout << "Axioma de fechamento! "; }
 #line 1219 "analisadorSint.tab.c"
     break;
 
-  case 45: /* some: SOME prop  */
-#line 102 "analisadorSint.y"
+  case 46: /* some: SOME prop  */
+#line 103 "analisadorSint.y"
                             { std::cout << "Descrição aninhada! "; }
 #line 1225 "analisadorSint.tab.c"
     break;
@@ -1418,7 +1418,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 118 "analisadorSint.y"
+#line 119 "analisadorSint.y"
 
 
 /* definido pelo analisador léxico */
