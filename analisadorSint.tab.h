@@ -62,8 +62,8 @@ extern int yydebug;
     EXACTLY = 263,                 /* EXACTLY  */
     THAT = 264,                    /* THAT  */
     NOT = 265,                     /* NOT  */
-    AND = 266,                     /* AND  */
-    OR = 267,                      /* OR  */
+    OR = 266,                      /* OR  */
+    AND = 267,                     /* AND  */
     ONLY = 268,                    /* ONLY  */
     CLASS = 269,                   /* CLASS  */
     PROPRIETY = 270,               /* PROPRIETY  */

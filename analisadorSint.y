@@ -17,10 +17,8 @@
 	int ind;
 }
 
-%token SOME ALL VALUE MIN MAX EXACTLY THAT NOT AND OR ONLY CLASS PROPRIETY INSTANCY SSYMBOL DTYPE CARDINALIDADE 
+%token SOME ALL VALUE MIN MAX EXACTLY THAT NOT OR AND ONLY CLASS PROPRIETY INSTANCY SSYMBOL DTYPE CARDINALIDADE 
 %token RCLASS RSUBCLASS REQUIVALENT RINDIVIDUALS RDISJOINT '[' ']' '(' ')' ',' '{' '}'
-
-%left '[' ']'
 
 %%
 
@@ -36,15 +34,20 @@ classeComum: RCLASS CLASS disjoint individuals { std::cout << "Achei uma classe 
 classePrimitiva: RCLASS CLASS subclass disjoint individuals { std::cout << "Achei uma classe primitiva\n"; }
     ;
 
-classeDefinida: RCLASS CLASS equivalent individuals { std::cout << "Achei uma classe definida\n"; } 
+classeDefinida: RCLASS CLASS equivalent disjoint individuals { std::cout << "Achei uma classe definida\n"; } 
     ;
 
-equivalent: REQUIVALENT classConnect // :
-    | REQUIVALENT instancies  { std::cout << "Achei uma classe enumerada "; }
-    | REQUIVALENT multClasses
+equivalent: REQUIVALENT CLASS equivProbs
+    | REQUIVALENT CLASS '(' equivProbs ')'
+    | REQUIVALENT instancies  { std::cout << "Classe enumerada! "; }
     ;
 
-individuals: RINDIVIDUALS instancies // :
+equivProbs: ',' seqProp
+    | connect seqProp
+    | connect multClasses { std::cout << "Classe coberta! "; }
+    ;
+
+individuals: RINDIVIDUALS instancies
     |
     ;
 
@@ -52,19 +55,15 @@ disjoint: RDISJOINT seqClasses
     |
     ;
 
-subclass: RSUBCLASS seqProp // :
-    | RSUBCLASS classConnect
-    ;
-
-classConnect: CLASS
-    | CLASS connect seqProp
-    | CLASS ',' seqProp
-    | '{' classConnect '}'      { std::cout << "Achei uma classe enumerada "; } // nesse caso tá meio que errado 
-    ;                                                   // pq enum é só com instancias, mas deixei pra caber no exemplo
+subclass: RSUBCLASS CLASS
+    | RSUBCLASS seqProp
+    | RSUBCLASS CLASS connect seqProp
+    | RSUBCLASS CLASS ',' seqProp
+    ;                                             
 
 seqClasses: CLASS
     | CLASS ',' seqClasses
-    | '(' seqClasses ')'        { std::cout << "Achei uma classe enumerada "; }
+    | '(' seqClasses ')' 
     ;
 
 instancies: INSTANCY
@@ -72,13 +71,13 @@ instancies: INSTANCY
     | '{' instancies '}'
     ;    
 
-seqProp: prop
-    | prop connect seqProp
-    | prop ',' seqProp
+connect: OR
+    | AND
     ;
-    
-connect: AND
-    | OR
+
+seqProp: prop
+    | '(' prop ')' connect seqProp
+    | prop ',' seqProp
     ;
 
 prop: PROPRIETY some
@@ -91,11 +90,11 @@ prop: PROPRIETY some
     ;
 
 only: ONLY multClasses
+    | ONLY '(' multClasses ')'
     ;
 
 multClasses: CLASS
-    | CLASS connect multClasses     
-    | '(' multClasses ')'
+    | CLASS connect multClasses  
     ;
 
 some: SOME CLASS
@@ -114,6 +113,7 @@ qntd: MIN CARDINALIDADE DTYPE
     ;
 
 value: VALUE CLASS
+    | VALUE INSTANCY
     ;
 
 %%
