@@ -9,6 +9,8 @@
     void yyerror(const char *);
 
     double variables[26];
+
+    int currentClass;
  
 %}
 
@@ -25,6 +27,7 @@
 classe: classeDefinida classe
     | classePrimitiva classe
     | classeComum classe
+    | error classe
     | 
     ;
 
@@ -76,7 +79,7 @@ connect: OR
     ;
 
 seqProp: prop
-    | '(' prop ')' connect seqProp
+    | prop connect seqProp          // removi '(' ')' do prop
     | prop ',' seqProp
     ;
 
@@ -84,22 +87,23 @@ prop: PROPRIETY some
     | PROPRIETY only        { std::cout << "Axioma de fechamento! "; }
     | PROPRIETY value
     | PROPRIETY qntd
-    | PROPRIETY EXACTLY
-    | PROPRIETY ALL
-    | '(' prop ')'
+    | PROPRIETY exactly
+    | PROPRIETY all
+    | '(' seqProp ')'
     ;
 
 only: ONLY multClasses
-    | ONLY '(' multClasses ')'
     ;
 
 multClasses: CLASS
     | CLASS connect multClasses  
+    | '(' multClasses ')'
     ;
 
-some: SOME CLASS
+some: SOME multClasses
     | SOME DTYPE especificardtype
     | SOME prop             { std::cout << "Descrição aninhada! "; }
+    | error                 { std::cout << "Esperava CLASS, DTYPE, PROPRIETY\n"; }
     ;
 
 especificardtype: '[' SSYMBOL CARDINALIDADE ']'
@@ -114,6 +118,14 @@ qntd: MIN CARDINALIDADE DTYPE
 
 value: VALUE CLASS
     | VALUE INSTANCY
+    | VALUE DTYPE especificardtype
+    ;
+
+exactly: EXACTLY CARDINALIDADE
+    | EXACTLY '{' instancies '}'
+    ;
+
+all: ALL multClasses
     ;
 
 %%
@@ -149,5 +161,7 @@ void yyerror(const char * s)
 	extern char * yytext;   
 
 	/* mensagem de erro exibe o símbolo que causou erro e o número da linha */
+    cout << "-------------------------------------------------------------------------------\n";
     cout << "Erro sintático: símbolo \"" << yytext << "\" (linha " << yylineno << ")\n";
+    cout << "-------------------------------------------------------------------------------\n";
 }

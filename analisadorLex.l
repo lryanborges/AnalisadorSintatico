@@ -39,7 +39,7 @@ digito [0-9]
 (EquivalentTo:)|(equivalentto:)|(EQUIVALENTTO:)                     return REQUIVALENT;
 (Individuals:)|(individuals:)|(INDIVIDUALS:)                        return RINDIVIDUALS;
 (DisjointClasses:)|(disjointclasses:)|(DISJOINTCLASSES:)            return RDISJOINT;
-({maiusc})({minusc}+)(_?({maiusc})({minusc}+))*                     return CLASS;
+({maiusc})({minusc}+)(_?({maiusc})({minusc}*))*                     return CLASS;
 ((has)(({maiusc})({minusc}+))+)|((is)({maiusc})({minusc}+)(Of))     return PROPRIETY;
 (({minusc}+)(({maiusc})({minusc})*)*)                               return PROPRIETY;
 ({maiusc})({minusc}+)(_?({maiusc})({minusc}+))*({digito}*)          return INSTANCY;
