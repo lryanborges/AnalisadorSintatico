@@ -84,7 +84,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 15 "analisadorSint.y"
+#line 17 "analisadorSint.y"
 
 	double num;
 	int ind;
