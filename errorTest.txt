@@ -32,7 +32,7 @@ Class: MargheritaPizza
         hasTopping some TomatoTopping,
         hasTopping only (MozzarellaTopping or TomatoTopping)
 
-Class: Spiciness
+Class: SpicinessEnum
 
     EquivalentTo: 
         {Hot1 , Medium1 or Mild1}
