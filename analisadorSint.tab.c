@@ -1255,31 +1255,31 @@ yyreduce:
 
   case 9: /* classeComum: rclass disjoint individuals  */
 #line 48 "analisadorSint.y"
-                                         { std::cout << "Achei uma classe comum\n"; }
+                                         { std::cout << "Classe Comum"; std::cout << " -> " << currentClass << std::endl; }
 #line 1260 "analisadorSint.tab.c"
     break;
 
   case 10: /* classePrimitiva: rclass subclass disjoint individuals  */
 #line 51 "analisadorSint.y"
-                                                      { std::cout << "Achei uma classe primitiva\n"; }
+                                                      { std::cout << "Classe Primitiva"; std::cout << " -> " << currentClass << std::endl; }
 #line 1266 "analisadorSint.tab.c"
     break;
 
   case 11: /* classeDefinida: rclass equivalent disjoint individuals  */
 #line 54 "analisadorSint.y"
-                                                       { std::cout << "Achei uma classe definida\n"; }
+                                                       { std::cout << "Classe Definida"; std::cout << " -> " << currentClass << std::endl; }
 #line 1272 "analisadorSint.tab.c"
     break;
 
   case 12: /* classeDesconhecida: rclass equivalent subclass disjoint individuals  */
 #line 57 "analisadorSint.y"
-                                                                    { std::cout << "Achei uma classe diferente\n"; }
+                                                                    { std::cout << "Classe Diferente"; std::cout << " -> " << currentClass << std::endl; }
 #line 1278 "analisadorSint.tab.c"
     break;
 
   case 14: /* equivalent: requivalent instancies  */
 #line 61 "analisadorSint.y"
-                              { std::cout << "Classe enumerada! "; }
+                              { std::cout << "Classe enumerada, "; }
 #line 1284 "analisadorSint.tab.c"
     break;
 
@@ -1309,19 +1309,19 @@ yyreduce:
 
   case 29: /* equivProbs: connect multClasses  */
 #line 92 "analisadorSint.y"
-                          { std::cout << "Classe coberta! "; }
+                          { std::cout << "Classe coberta, "; }
 #line 1314 "analisadorSint.tab.c"
     break;
 
   case 46: /* prop: PROPRIETY only  */
 #line 119 "analisadorSint.y"
-                            { std::cout << "Axioma de fechamento! "; }
+                            { std::cout << "Axioma de fechamento, "; }
 #line 1320 "analisadorSint.tab.c"
     break;
 
   case 59: /* some: SOME prop  */
 #line 138 "analisadorSint.y"
-                            { std::cout << "Descrição aninhada! "; }
+                            { std::cout << "Descrição aninhada, "; }
 #line 1326 "analisadorSint.tab.c"
     break;
 
@@ -1551,11 +1551,11 @@ int main(int argc, char ** argv)
     cout << "-------------------------------------------------------------------------------" << std::endl;
     cout << "\t\t\t\t RESULTADOS" << std::endl;
     cout << "-------------------------------------------------------------------------------" << std::endl;
-    cout << "Classes comuns: " << comumClass << std::endl;
-    cout << "Classes primitivas: " << primitiveClass << std::endl;
-    cout << "Classes definidas: " << definedClass << std::endl;
-    cout << "Classes com erro: " << numErrors << std::endl;
-    cout << "Número de classes: " << numbClasses << std::endl;
+    cout << "Classes comuns: \t" << comumClass << std::endl;
+    cout << "Classes primitivas: \t" << primitiveClass << std::endl;
+    cout << "Classes definidas: \t" << definedClass << std::endl;
+    cout << "Classes com erro: \t" << numErrors << std::endl;
+    cout << "Número de classes: \t" << numbClasses << std::endl;
     
 }
 
@@ -1569,8 +1569,7 @@ void yyerror(const char * s)
 	/* mensagem de erro exibe o símbolo que causou erro e o número da linha */
     cout << "-------------------------------------------------------------------------------\n";
     cout << "ERRO SINTÁTICO: símbolo \"" << yytext << "\" (linha " << yylineno << " do arquivo)\n";
-    cout << "ENCONTRADO NA CLASSE: " << currentClass << std::endl;
-    cout << "ENCONTRADO NA PROPRIEDADE: \"" << currentProp << "\"\n";
+    cout << "NA PROPRIEDADE: \"" << currentProp << "\" DA CLASSE " << currentClass << std::endl;
     //cout << "Erro na " << numbClasses++ << "ª classe.\n";
     cout << "-------------------------------------------------------------------------------\n";
 }
