@@ -108,7 +108,7 @@ connect: OR
     ;
 
 seqProp: prop
-    | prop connect seqProp          // removi '(' ')' do prop
+    | prop connect seqProp         
     | prop ',' seqProp
     | INVERSE prop
     | INVERSE prop connect seqProp
@@ -124,7 +124,7 @@ prop: PROPRIETY some
     | '(' seqProp ')'
     ;
 
-only: ONLY CLASS                // basicamente to desconsiderando que pode vir "only (Classe)", apenas "only Classe"
+only: ONLY CLASS                // basicamente to desconsiderando que pode vir "only (Classe)", "only Classe"
     | ONLY '(' multClasses ')'
     ;
 
