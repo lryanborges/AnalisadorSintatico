@@ -208,6 +208,8 @@ void yyerror(const char * s)
 	extern char * yytext;   
 
     numErrors++;
+    cout << "-------------------------------------------------------------------------------\n";
+    cout << "\t\t\t\t ERRO" << std::endl;
 	/* mensagem de erro exibe o símbolo que causou erro e o número da linha */
     cout << "-------------------------------------------------------------------------------\n";
     cout << "ERRO SINTÁTICO: símbolo \"" << yytext << "\" (linha " << yylineno << " do arquivo)\n";
