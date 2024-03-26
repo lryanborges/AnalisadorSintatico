@@ -18,3 +18,10 @@ Segue o passo a passo pra executar o Analisador Léxico em C++:
 
 Detalhes:
  - No passo 2 da execução, o -d é para conseguir gerar o arquivo.h do analisadorSint, que o analisadorLex utiliza pra conhecimento dos tokens/enum.
+ - No passo 4 da execução, temos as opções de ler os arquivos:
+   1. sintTest.txt
+   2. finalTest.txt
+   3. newTest.txt
+   4. moreTest.txt
+   5. errorTest.txt
+ - O arquivo errorTest.txt possui erros intencionais, pra demonstração.
