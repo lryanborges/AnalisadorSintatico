@@ -1,4 +1,4 @@
-Segue o passo a passo pra executar o Analisador Léxico em C++:
+Segue o passo a passo pra executar o Analisador Sintático em C:
 
  - Deve ser executado dentro de um sistema Unix
  - No terminal:
