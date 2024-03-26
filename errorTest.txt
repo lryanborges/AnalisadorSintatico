@@ -31,3 +31,19 @@ Class: MargheritaPizza
         hasTopping some MozzarellaTopping,
         hasTopping some TomatoTopping,
         hasTopping only (MozzarellaTopping or TomatoTopping)
+
+Class: Spiciness
+
+    EquivalentTo: 
+        {Hot1 , Medium1 or Mild1}
+
+Class: Spiciness
+
+    EquivalentTo: 
+        Hot or Medium or Mild
+
+Class: MargheritaPizza
+
+    SubClassOf:
+        NamedPizza,
+        hasTopping only (MozzarellaTopping, TomatoTopping)

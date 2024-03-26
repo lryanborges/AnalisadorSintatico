@@ -2,6 +2,7 @@
     
     #include <iostream>
     #include <stdio.h>
+    #include <cstring>
     using std::cout;
 
     int yylex(void);
@@ -10,8 +11,17 @@
 
     double variables[26];
 
-    int currentClass;
- 
+    int numbClasses = 0;
+    int comumClass = 0;
+    int primitiveClass = 0;
+    int definedClass = 0;
+    int numErrors = 0;
+
+    char currentClass[100];
+    char currentProp[100];
+
+    extern char *yytext;
+
 %}
 
 %union {
@@ -19,50 +29,69 @@
 	int ind;
 }
 
-%token SOME ALL VALUE MIN MAX EXACTLY THAT NOT OR AND ONLY CLASS PROPRIETY INSTANCY SSYMBOL DTYPE CARDINALIDADE 
+%token SOME ALL VALUE MIN MAX EXACTLY THAT NOT OR AND ONLY INVERSE CLASS PROPRIETY INSTANCY SSYMBOL DTYPE CARDINALIDADE 
 %token RCLASS RSUBCLASS REQUIVALENT RINDIVIDUALS RDISJOINT '[' ']' '(' ')' ',' '{' '}'
 
 %%
 
-classe: classeDefinida classe
-    | classePrimitiva classe
-    | classeComum classe
-    | error classe
+classe: classeDefinida classe   { definedClass++; numbClasses++; }
+    | classePrimitiva classe    { primitiveClass++; numbClasses++; }
+    | classeComum classe        { comumClass++; numbClasses++; }
+    | classeDesconhecida classe { numbClasses++; }
+    | error classe             
     | 
     ;
 
-classeComum: RCLASS CLASS disjoint individuals { std::cout << "Achei uma classe comum\n"; }
+rclass: RCLASS CLASS { strcpy(currentClass, yytext); }
     ;
 
-classePrimitiva: RCLASS CLASS subclass disjoint individuals { std::cout << "Achei uma classe primitiva\n"; }
+classeComum: rclass disjoint individuals { std::cout << "Achei uma classe comum\n"; }
     ;
 
-classeDefinida: RCLASS CLASS equivalent disjoint individuals { std::cout << "Achei uma classe definida\n"; } 
+classePrimitiva: rclass subclass disjoint individuals { std::cout << "Achei uma classe primitiva\n"; }
     ;
 
-equivalent: REQUIVALENT CLASS equivProbs
-    | REQUIVALENT CLASS '(' equivProbs ')'
-    | REQUIVALENT instancies  { std::cout << "Classe enumerada! "; }
+classeDefinida: rclass equivalent disjoint individuals { std::cout << "Achei uma classe definida\n"; } 
     ;
+
+classeDesconhecida: rclass equivalent subclass disjoint individuals { std::cout << "Achei uma classe diferente\n"; }
+    ;
+
+equivalent: requivalent CLASS equivProbs
+    | requivalent instancies  { std::cout << "Classe enumerada! "; }
+    ;
+
+subclass: rsubclass CLASS
+    | rsubclass seqProp
+    | rsubclass CLASS connect seqProp
+    | rsubclass CLASS ',' seqProp
+    ;         
+
+individuals: rindividuals instancies
+    |
+    ;
+
+disjoint: rdisjoint seqClasses
+    |
+    ;    
+
+requivalent: REQUIVALENT    { strcpy(currentProp, yytext); }
+    ;
+
+rsubclass: RSUBCLASS        { strcpy(currentProp, yytext); }
+    ;        
+
+rindividuals: RINDIVIDUALS  { strcpy(currentProp, yytext); }
+    ;    
+
+rdisjoint: RDISJOINT        { strcpy(currentProp, yytext); }
+    ;                            
 
 equivProbs: ',' seqProp
     | connect seqProp
     | connect multClasses { std::cout << "Classe coberta! "; }
+    | '(' equivProbs ')'
     ;
-
-individuals: RINDIVIDUALS instancies
-    |
-    ;
-
-disjoint: RDISJOINT seqClasses
-    |
-    ;
-
-subclass: RSUBCLASS CLASS
-    | RSUBCLASS seqProp
-    | RSUBCLASS CLASS connect seqProp
-    | RSUBCLASS CLASS ',' seqProp
-    ;                                             
 
 seqClasses: CLASS
     | CLASS ',' seqClasses
@@ -81,6 +110,9 @@ connect: OR
 seqProp: prop
     | prop connect seqProp          // removi '(' ')' do prop
     | prop ',' seqProp
+    | INVERSE prop
+    | INVERSE prop connect seqProp
+    | INVERSE prop ',' seqProp
     ;
 
 prop: PROPRIETY some
@@ -92,18 +124,19 @@ prop: PROPRIETY some
     | '(' seqProp ')'
     ;
 
-only: ONLY multClasses
+only: ONLY CLASS                // basicamente to desconsiderando que pode vir "only (Classe)", apenas "only Classe"
+    | ONLY '(' multClasses ')'
     ;
 
 multClasses: CLASS
-    | CLASS connect multClasses  
-    | '(' multClasses ')'
+    | CLASS connect multClasses 
     ;
 
-some: SOME multClasses
+some: SOME CLASS
+    | SOME '(' multClasses ')'
     | SOME DTYPE especificardtype
     | SOME prop             { std::cout << "Descrição aninhada! "; }
-    | error                 { std::cout << "Esperava CLASS, DTYPE, PROPRIETY\n"; }
+    //| error                 { std::cout << "Esperava CLASS, DTYPE, PROPRIETY\n"; }
     ;
 
 especificardtype: '[' SSYMBOL CARDINALIDADE ']'
@@ -121,20 +154,24 @@ value: VALUE CLASS
     | VALUE DTYPE especificardtype
     ;
 
-exactly: EXACTLY CARDINALIDADE
+exactly: EXACTLY CARDINALIDADE CLASS
     | EXACTLY '{' instancies '}'
     ;
 
-all: ALL multClasses
+all: ALL CLASS 
+    | ALL '(' multClasses ')'
     ;
 
 %%
 
 /* definido pelo analisador léxico */
 extern FILE * yyin;  
-
 int main(int argc, char ** argv)
 {
+
+    cout << "-------------------------------------------------------------------------------" << std::endl;
+    cout << "\t\t\t\t ANÁLISE" << std::endl;
+    cout << "-------------------------------------------------------------------------------" << std::endl;
 
     /* se foi passado um nome de arquivo */
 	if (argc > 1)
@@ -152,6 +189,16 @@ int main(int argc, char ** argv)
 	}
 
 	yyparse();
+
+    cout << "-------------------------------------------------------------------------------" << std::endl;
+    cout << "\t\t\t\t RESULTADOS" << std::endl;
+    cout << "-------------------------------------------------------------------------------" << std::endl;
+    cout << "Classes comuns: " << comumClass << std::endl;
+    cout << "Classes primitivas: " << primitiveClass << std::endl;
+    cout << "Classes definidas: " << definedClass << std::endl;
+    cout << "Classes com erro: " << numErrors << std::endl;
+    cout << "Número de classes: " << numbClasses << std::endl;
+    
 }
 
 void yyerror(const char * s)
@@ -160,8 +207,12 @@ void yyerror(const char * s)
 	extern int yylineno;    
 	extern char * yytext;   
 
+    numErrors++;
 	/* mensagem de erro exibe o símbolo que causou erro e o número da linha */
     cout << "-------------------------------------------------------------------------------\n";
-    cout << "Erro sintático: símbolo \"" << yytext << "\" (linha " << yylineno << ")\n";
+    cout << "ERRO SINTÁTICO: símbolo \"" << yytext << "\" (linha " << yylineno << " do arquivo)\n";
+    cout << "ENCONTRADO NA CLASSE: " << currentClass << std::endl;
+    cout << "ENCONTRADO NA PROPRIEDADE: \"" << currentProp << "\"\n";
+    //cout << "Erro na " << numbClasses++ << "ª classe.\n";
     cout << "-------------------------------------------------------------------------------\n";
 }

@@ -65,17 +65,18 @@ extern int yydebug;
     OR = 266,                      /* OR  */
     AND = 267,                     /* AND  */
     ONLY = 268,                    /* ONLY  */
-    CLASS = 269,                   /* CLASS  */
-    PROPRIETY = 270,               /* PROPRIETY  */
-    INSTANCY = 271,                /* INSTANCY  */
-    SSYMBOL = 272,                 /* SSYMBOL  */
-    DTYPE = 273,                   /* DTYPE  */
-    CARDINALIDADE = 274,           /* CARDINALIDADE  */
-    RCLASS = 275,                  /* RCLASS  */
-    RSUBCLASS = 276,               /* RSUBCLASS  */
-    REQUIVALENT = 277,             /* REQUIVALENT  */
-    RINDIVIDUALS = 278,            /* RINDIVIDUALS  */
-    RDISJOINT = 279                /* RDISJOINT  */
+    INVERSE = 269,                 /* INVERSE  */
+    CLASS = 270,                   /* CLASS  */
+    PROPRIETY = 271,               /* PROPRIETY  */
+    INSTANCY = 272,                /* INSTANCY  */
+    SSYMBOL = 273,                 /* SSYMBOL  */
+    DTYPE = 274,                   /* DTYPE  */
+    CARDINALIDADE = 275,           /* CARDINALIDADE  */
+    RCLASS = 276,                  /* RCLASS  */
+    RSUBCLASS = 277,               /* RSUBCLASS  */
+    REQUIVALENT = 278,             /* REQUIVALENT  */
+    RINDIVIDUALS = 279,            /* RINDIVIDUALS  */
+    RDISJOINT = 280                /* RDISJOINT  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -84,12 +85,12 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 17 "analisadorSint.y"
+#line 27 "analisadorSint.y"
 
 	double num;
 	int ind;
 
-#line 93 "analisadorSint.tab.h"
+#line 94 "analisadorSint.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

@@ -34,11 +34,13 @@ digito [0-9]
 (and)|(AND)                                                         return AND;
 (or)|(OR)                                                           return OR;
 (only)|(ONLY)                                                       return ONLY;
+(inverse)|(INVERSE)                                                 return INVERSE;
 (Class:)|(class:)|(CLASS:)                                          return RCLASS;
 (SubClassOf:)|(subclassof:)|(SUBCLASSOF:)                           return RSUBCLASS;
 (EquivalentTo:)|(equivalentto:)|(EQUIVALENTTO:)                     return REQUIVALENT;
 (Individuals:)|(individuals:)|(INDIVIDUALS:)                        return RINDIVIDUALS;
 (DisjointClasses:)|(disjointclasses:)|(DISJOINTCLASSES:)            return RDISJOINT;
+(DisjointWith:)|(disjointwith:)|(DISJOINTWITH:)                     return RDISJOINT;
 ({maiusc})({minusc}+)(_?({maiusc})({minusc}*))*                     return CLASS;
 ((has)(({maiusc})({minusc}+))+)|((is)({maiusc})({minusc}+)(Of))     return PROPRIETY;
 (({minusc}+)(({maiusc})({minusc})*)*)                               return PROPRIETY;
