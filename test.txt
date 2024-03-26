@@ -1,1 +1,0 @@
-PizzaTopping and CheeseTopping that hasSpiciness some Mild and hasCountryOfOrigin value Italy
