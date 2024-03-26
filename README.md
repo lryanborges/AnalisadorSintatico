@@ -24,4 +24,4 @@ Detalhes:
    3. newTest.txt
    4. moreTest.txt
    5. errorTest.txt
- - O arquivo errorTest.txt possui erros intencionais, pra demonstração.
+ - O arquivo errorTest.txt possui erros intencionais, para demonstração.
