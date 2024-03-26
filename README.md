@@ -20,7 +20,7 @@ Segue o passo a passo pra executar o Analisador Sintático em C:
   3. g++ lex.yy.c  analisadorSint.tab.c  -std=c++17 -o analisador
   4. ./analisador finalTest.txt
 
-<h2>Detalhes:</h2>
+Detalhes:
  - No passo 2 da execução, o -d é para conseguir gerar o arquivo.h do analisadorSint, que o analisadorLex utiliza pra conhecimento dos tokens/enum.
  - No passo 4 da execução, temos as opções de ler os arquivos:
    1. sintTest.txt
