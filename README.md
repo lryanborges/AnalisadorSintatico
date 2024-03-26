@@ -1,6 +1,6 @@
 Segue o passo a passo pra executar o Analisador Sintático em C:
 
-<h1>Para instalação:</h1>
+<h2>Para instalação:</h2>
 
  - Deve ser executado dentro de um sistema Unix
  - No terminal:
@@ -11,7 +11,7 @@ Segue o passo a passo pra executar o Analisador Sintático em C:
   5. sudo apt install flex libfl-dev
   6. sudo apt install bison libbison-dev
 
-<h1>Para execução:</h1>
+<h2>Para execução:</h2>
 
  - Abrir o projeto no VSCode
  - Executar os comandos:
