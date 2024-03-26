@@ -25,3 +25,4 @@ Detalhes:
    4. moreTest.txt
    5. errorTest.txt
  - O arquivo errorTest.txt possui erros intencionais, para demonstração.
+ - O arquivo moreTest.txt é o que mais possui classes, sendo o verdadeiro arquivo de "teste final".
